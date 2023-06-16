@@ -1,0 +1,391 @@
+ /*
+  !NOTES TODO ON SYSTEM
+  
+ */
+ body{
+    margin-top: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #fff;
+    position: static;
+}
+/*====---++STYLING SIDE NAV++---===*/
+.side-nav{
+    background-color: #012b01;
+     min-height: 100vh;
+    padding-left: 10px;
+    
+}
+
+/*--== styling side nav links ==-*/
+.profile-top li{
+    list-style: none;
+    margin-left: -24px;
+   
+}
+.profile-top li .fa{
+    margin-left: 1px;
+    font-size: 26px;
+}
+.profile-top li a span{
+    font-size: 24px;
+    margin-left: 4px;
+    color: #fff;
+}
+
+.mainmenu{
+     list-style: none;
+     display: block;
+     margin-left: -28px;
+     margin-right: -11px;
+     color: #fff;
+     text-decoration: none;
+     line-height: 38px;
+     background-color: #012b01f8;
+}
+.mainmenu a span{
+     margin-left: 10px;
+     color: #ffffff;
+}
+.mainmenu .fa{
+      margin-left: 10px;
+      color: #ffffff;
+}
+.submenu ul{
+     list-style: none;
+     margin-left: -20px;
+     width: 100%;
+     height: 70px;
+}
+.submenu li{
+    background-color: #0f251398;
+    margin:1px 1px 1px -10px;
+    line-height: 30px;
+    margin-right: -20px;
+}
+.submenu li:hover{
+     background-color: #63b1f144;
+}
+.submenu ul,li,a span:hover{
+    color: #eff3f3;
+}
+.submenu{
+     display: none;
+}
+.submenu ul li a span{
+     margin-left: 10px;
+}
+.submenu ul li a .fa{
+    margin-left: 30px;
+}
+
+
+/*---styling profile content left nav-*/
+.profile-element{
+    align-content: center;
+     margin-top: 30px;
+     margin-right: 0px;
+}
+.profile-element-c{
+  align-content: center;
+   width:108px;
+   height: 108px;
+   background-color: #fff;
+   margin-left: 30px;
+   border-radius: 50%;
+}
+.profile-element img{
+    width: 104px;
+    height: 104px;
+    margin-top: 2px;
+    border-radius: 50%;
+}
+/*===========================STYLING NAV-BAR CENTER======================*/
+
+#nav-bar-top{
+    margin-left: -1px;
+}
+#btn-toggle-1{
+   margin-left: -10px;
+   background-color: #78939707;
+   color: #fff;
+}
+.log-out{
+    list-style: none;
+    text-decoration: none;
+    color: #fff;
+}
+.log-out:hover{
+     color: rgb(75, 8, 8);
+}
+
+/*===================================STYLING DASHBORD CONTENT====================================*/
+
+.card-stats{
+     height: auto;
+     color: #000;
+     z-index: 2;
+     background-color: #dde4e1;
+     box-shadow: 1px 2px 3px #000;
+
+}
+.card-footer{
+     background-color: #b6c6df;
+     color: #180f0f;
+}
+.col-lg-3{
+    margin-top: 10px;
+}
+.numbers p{
+     margin-left: 10px;
+     font-size: 22px;
+     font-weight: bold;
+}
+.numbers .card-title{
+    font-size: 25px;
+}
+.numbers h3{
+    margin-left: 20px;
+    color: #21398a;
+}
+a{
+    text-decoration: none;
+}
+.card-stats:hover{
+   background-color: #312c49;
+   color: #fff;
+  box-shadow: 2px 2px 2px hsl(0, 6%, 82%);
+
+}
+.card-foote-style:hover{
+     background-color: #5a515c;
+     color: #ffffff;
+}
+.row-middle{
+      margin-top: 30px;
+}
+.row-bottom{
+     margin-top: 30px;
+}
+
+/*+-----------------------STYLE USER-ADMIN PROFILE--------------------+*/
+.card-user1{
+     display: none;
+}
+.card-user{
+    background-color: #ddd6d6;
+    border-radius: 20px;
+}
+.card-user .image{
+     width: 100%;
+     height: 100px;
+     background-color: #d6d5d6;
+     border-top-right-radius: 20px;
+     border-top-left-radius: 20px;
+    
+}
+.card-user .image img{
+     width: 100%;
+     height: 100px;
+}
+.profile-body{
+     background-color: #fafafd;
+     height: 200px;
+     width: 100%;
+}
+.profile-body .author{
+  width: 100%;
+  height: 100px;
+}
+.author img{
+     width: 100px;
+     height: 100px;
+     border-radius: 50%;
+     margin-top: -20%;
+}
+
+.foot-card{
+     margin-bottom: 20px;
+     background-color: #d6d5d6;
+} 
+.foot-card hr{
+margin-left: -13px; 
+margin-right: -13px;
+margin-top: -9px;
+width: 6px solid;
+color: #000;
+}
+.c-footer-p{
+    border-right:1px  #000 solid;
+     
+}
+
+/*===============================TASK STATUS STYLING==============================*/
+.task-head{
+    color: #000;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: -10px;
+    font-weight: bolder;
+}
+.task-card{
+    background-image: linear-gradient(to right bottom , #939992 , #3ebacf);
+    box-shadow: 1px 1px 3px 2px #11a86e ;
+}
+.task-status-card{
+      height: 150px;
+      color: #240c0c;
+      cursor: pointer;
+      background-color: #062c1f25;
+      /*background-image: linear-gradient(to top right, #539eac , #32d869);*/
+      box-shadow: 2px 2px 3px  #21398a;
+}
+.task-status-card1{
+    height: 150px;
+    color: #240c0c;
+    cursor: pointer;
+    background-color: #062c1f25;
+    /*background-image: linear-gradient(to top right, #2b545c , rgb(58, 58, 185));*/
+    box-shadow: 2px 2px 3px  #21398a;
+}
+.task-status-card2{
+    height: 150px;
+    color: #240c0c;
+    background-color: #062c1f25;
+    /*background-image: linear-gradient(to top right, #51bd36 , #9ca82d);*/
+    box-shadow: 2px 2px 3px  #21398a;
+}
+.task-status-card3{
+    height: 150px;
+    color: #240c0c;
+    cursor: pointer;
+    background-color: #062c1f25;
+    /*background-image: linear-gradient(to top right, #5c224e , rgb(110, 11, 11));*/
+    box-shadow: 2px 2px 3px  #21398a;
+}
+.task-status-card:hover,.task-status-card1:hover,.task-status-card2:hover,.task-status-card3:hover{
+    height: 150px;
+    color: #f7f4f4;
+    cursor: pointer;
+    background-color: #062c1f25;
+    background-image: linear-gradient(to top right, #70e1f5 , #6e48aa);
+    box-shadow: 5px 5px 5px  #21398a;
+
+}
+.fa-check-circle-o{
+     margin-top: -9px;
+     margin-left: -6px;
+     color: green;
+}
+.fa-play-circle-o{
+    margin-top: -9px;
+     margin-left: -6px;
+     color: blue;
+}
+.fa-ban{
+    margin-top: -9px;
+     margin-left: -6px;
+     color: yellow;
+}
+.fa-times-circle-o{
+    margin-top: -9px;
+    margin-left: -6px;
+    color: red;
+}
+.task-label{
+    margin-top: -10px;
+    margin-left: -5px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+}
+.task-value{
+    margin-top: -15px;
+}
+/*=================DATA VIRTUALIZATIONS STYLING=================*/
+.data-virtual{
+    background-image: linear-gradient(to right bottom , #93999209 , #3eb9cf05);
+    box-shadow: 1px 1px 3px 2px #11a86e ;
+}
+.data-virtual2
+{
+    background-color: #00000000;
+    color: #00000000;
+}
+
+
+
+
+/*================================LOGIN===================================*/
+.card-login{
+    margin-top: 10%;
+    margin-left: 25%;
+    width: 300px;
+    height: 400px;
+}
+.input-prepend{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.add-on{
+     
+    background-color: #3b5d83;
+    color: #fafafa;
+    width: 60px;
+}
+input{
+    height: 40px;
+}
+span{
+    height: 40px;
+}
+
+/*==================================CSS FOR ADD PROJECT FORM ===============================*/
+.card-product-info{
+     top: 50%;
+     left: 50%;
+     transform: translate(-50% ,-50%);
+     width: 60%;
+     max-width: 100%;
+     
+}
+textarea{
+    width: 100%;
+    height: 100%;
+    resize:none;
+    box-sizing: border-box;
+}
+/*----Line section---*/
+.line-sec{
+     margin-left: -30px;
+     margin-right: -5px;
+}
+.line-sec .text-light h1 hr{
+     height: 4px;
+     width: 100%;
+     color: #ffff;
+}
+
+/*----------styling table image----------*/
+
+/*
+!...Styling badge status label : badge-label
+*/
+span .badge-label{
+     width: 100px;
+     color: #fff;
+     height: 3px;
+}
+
+/*-------css for styling card product info ----*/
+.img-card{
+    width: 100%;
+    height: 300px;
+    background-color: #4e484900;
+    border: none;
+     
+}
+.product-image{
+    width: 100%;
+    height: 300px;
+    border-radius: 40px;
+}

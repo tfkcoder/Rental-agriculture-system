@@ -1,0 +1,181 @@
+/*--------------LOGIN CSS----------------*/
+body{
+    
+    /*background-image: 
+    linear-gradient(to right  bottom,rgba( 0, 10, 0, 0.4)50% ,rgba(0, 10, 0, 0.4)50%),
+    url('../images/log-back1.jpg');
+    background-size: cover; */
+    background-color: #ddd6f4;
+}
+.card{
+    margin-top: 5%;
+    width:  50%;
+    height: 65%;
+    align-items: center;
+    margin-left: 25%;
+    border-radius: 10px;
+    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.8);
+    background-color: #5a7079ab;
+    margin-bottom: 40px;
+    border-top: 2px solid rgb(0, 204, 255);
+}
+.cc-hr hr{
+     color: #d6cfcf;
+     height: 2px;
+      
+}
+.cc-hr-btm{
+     margin-top: 60px;
+     
+}
+.h3-txt{
+     margin-top: 100px;
+      color: #fff;
+      font-weight: 400;
+}
+.container{
+    align-items: center;
+    justify-content: center
+}
+form{
+    margin: 10px;
+    margin-top: 5px;
+}
+.has-feedback input{
+    background-color: transparent;
+}
+input::-ms-input-placeholder{
+    color: #fffcfc;
+    opacity: 0.5;
+}
+input:-ms-input-placeholder{
+    color: #fdfdfd;
+    opacity: 0.5;
+}
+.has-feedback input::placeholder{
+ color: #fff;
+ opacity:1;
+}
+.has-feedback input::placeholder:hover{
+    font-size: 20px;
+    color: #fafafa;
+}
+
+div a{
+    text-decoration: none;
+    color: #000;
+}
+.regist1{
+    color: #f3f0f0;
+    background: rgb(36, 23, 39);
+}
+.regist1:hover{
+    color: #fff;
+    background-color: rgb(48, 70, 70);
+}
+.sign-in {
+    color: #000;
+     background: rgb(207, 212, 214);
+
+}
+.sign-in:hover{
+    color: #fff;
+    background-color: darkcyan;
+}
+.login-box-body p{
+    text-justify: auto;
+    font-size: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #24282b;
+}
+input{
+    width: 100%;
+}
+.card-hed-logn{
+   background-color: #5a70795e;
+   width: 100%;
+   color: #fff;
+}
+.log-footer{
+     background-color: #77c4ad5d;
+     width: 100%;
+     align-content: center;
+}
+.log-footer a h6{
+     margin-top: -1px;
+     margin-left: 0px;
+     color: #cfc9c9;
+}
+.log-footer a h6:hover{
+    margin-top: -1px;
+    margin-left: 0px;
+    color: #02080a; 
+}
+.input-group-text{
+  background-color: #00000000;
+  border-right: none;
+  border-left: 3px solid  white;
+  color: #ddd6f4;
+}
+.form-select{
+    background-color: rgba(0, 255, 0, 0.007);
+}
+
+
+
+.form-control{
+   border-left: none;
+}
+
+.login-btn{
+   border: 1px solid #fff;
+}
+.login-btn:hover{
+   border: 1px solid #0f0;
+   background-color: #3a91a180;
+}
+@media(min-width: 310px){
+     body{
+         background-color: #ddd6f4;
+     }
+    .card{
+        margin-top: 10%;
+        width:  90%;
+        height: 80%;
+        align-items: center;
+        margin-left: 6%;
+        border-radius: 10px;
+        box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.8);
+        background-color: #5a70795e;
+        margin-bottom: 40px;
+    }
+    .log-footer{
+        background-color: #353e3f71;
+        width: 100%;
+        align-content: center;
+   }
+   .log-footer a{
+        margin-top: 2px;
+        margin-left: 80px;
+        color: #000;
+   }
+}
+@media screen and (min-width: 1024px){
+   
+    .card{
+        margin-top: 5%;
+        width:  50%;
+        height: 80%;
+        align-items: center;
+        margin-left: 25%;
+        border-radius: 10px;
+        box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.8);
+        background-color: #5a70795e;
+        margin-bottom: 0px;
+    }
+    body{
+        background-color: #ddd6f4;
+    }
+
+}
