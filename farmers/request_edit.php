@@ -8,6 +8,7 @@
 		$equipment= $_POST['equipment'];
         $quantity =$_POST['quantity'];
         $days=$_POST['days'];
+		$now=date('y-m-d');
 
         $conn = $pdo->open();
 
@@ -21,6 +22,15 @@
 			 //$stmt->execute(['name'=>$name, 'category_id'=>$category_id]);
 
 			 $_SESSION['success'] = 'Request updated successfully..!';
+              
+			$action="Update request";
+			$user_id=$_SESSION['farmer'];
+			$stmt=$conn->prepare("INSERT INTO system_logs (user_id,action1,date) VALUES (:user_id,:action1,:date)");
+			$stmt->bindParam(':action1',$action);
+			$stmt->bindParam(':user_id',$user_id);
+			$stmt->bindParam(':date',$now);
+			$stmt->execute();
+
 		}
 		catch(PDOException $e){
 			$_SESSION['error'] = $e->getMessage();

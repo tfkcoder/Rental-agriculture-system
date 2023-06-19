@@ -44,14 +44,14 @@
                     <!-- Begin side nav profile -->
                     <div class="nav-header">
                         <div class="section profile-element-c">
-                        <div class="dropdown profile-element text-center">
-                            <a>
-                                <img src="/rais/images/sunflower.jpg" class="img-circle" alt="photo">
-                                <div class="section">
+                            <div class="dropdown profile-element text-center">
+                                <a>
+                                    <img src="/rais/images/sunflower.jpg" class="img-circle" alt="photo">
+                                    <div class="section">
 
-                                </div>
-                            </a>
-                        </div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                         <div class="logo-element text-center text-light mt-4">RAIS | Admin</div>
                     </div>
@@ -81,10 +81,6 @@
                                 </div>
                             </div>
                             <div class="mainmenu">
-                                <a href="/rais/rentalsp/manage-product.php"><i class="fa fa-database"></i><span>Products</span></a>
-                                
-                            </div>
-                            <div class="mainmenu">
                                 <a href="#"><i class="fa fa-users"></i><span>Users</span></a>
                                 <div class="submenu">
                                     <ul>
@@ -96,14 +92,11 @@
                                 </div>
                             </div>
                             <div class="mainmenu">
-                                <a href="/rais/rentalsp/category.php"><i class="fa fa-list"></i><span>Category</span></a>
-                                
+                                <a href="system_logs.php"><i class="fa fa-trash"></i><span>System Logs</span></a>
+
                             </div>
-                            <div class="mainmenu">
-                                <a href="request.php"><i class="fa fa-book"></i><span>Request</span> </a>
-                               
-                            </div>
-                            <div class="section line-sec">
+
+                            <div class="section mt-4 line-sec">
                                 <div class="h1 text-light">
                                     <h1>
                                         <hr>
@@ -142,6 +135,26 @@
                         <div class="col-sm-6 col-lg-6 col-md-6">
                             <div class="h3">Dashboard</div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="section mt-1">
+                                <div class="container-fluid text-dark">
+                                    <h4 class="pull-left">Logged in as:&nbsp;<strong style="color: #0066cc;">
+                                            <?php
+                                  $conn = $pdo->open();
+                                  $stmt = $conn->prepare("SELECT firstname,lastname FROM users WHERE user_id=:user_id");
+                                  $stmt->execute(['user_id'=>$_SESSION['admin']]);
+                                  $crow =  $stmt->fetch();
+                                  $firstnm=$crow['firstname'];
+                                  $lastname=$crow['lastname'];
+                                  echo "<td class='text-primary'>$firstnm  $lastname</td>";
+                                  $pdo->close();
+                                ?>
+                                        </strong> </h4>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                     </div>
                 </div>
                 <!--section for dashbord content here-->
@@ -161,7 +174,7 @@
                                             <div class="numbers">
                                                 <p class="card-category">Category</p>
                                                 <p class="card-title" id='0101'>
-                                                <?php
+                                                    <?php
                                                     $conn = $pdo->open();
                                                     $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM category");
                                                     $stmt->execute();
@@ -179,7 +192,7 @@
                                     <div class="card-footer card-foote-style">
                                         <div class="stats text-center">
                                             <i class="fa fa-refresh"></i>
-                                             
+
                                         </div>
                                     </div>
                                 </a>
@@ -198,8 +211,8 @@
                                         <div class="col-7 col-md-8">
                                             <div class="numbers">
                                                 <p class="card-category">Users</p>
-                                                <p class="card-title" id='0102' >
-                                                <?php
+                                                <p class="card-title" id='0102'>
+                                                    <?php
                                                     $conn = $pdo->open();
                                                     $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM users");
                                                     $stmt->execute();
@@ -217,7 +230,7 @@
                                     <div class="card-footer card-foote-style">
                                         <div class="stats text-center">
                                             <i class="fa fa-refresh" aria-hidden="true"></i>
-      
+
                                         </div>
                                     </div>
                                 </a>
@@ -236,8 +249,8 @@
                                         <div class="col-7 col-md-8">
                                             <div class="numbers">
                                                 <p class="card-category">Equipments</p>
-                                                <p class="card-title" id='0103' >
-                                                <?php
+                                                <p class="card-title" id='0103'>
+                                                    <?php
                                                     $conn = $pdo->open();
                                                     $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM products");
                                                     $stmt->execute();
@@ -274,7 +287,7 @@
                                             <div class="numbers">
                                                 <p class="card-category">Request</p>
                                                 <p class="card-title">
-                                                <?php
+                                                    <?php
                                                     $conn = $pdo->open();
                                                     $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request");
                                                     $stmt->execute();
@@ -292,7 +305,7 @@
                                     <div class="card-footer card-foote-style">
                                         <div class="stats text-center">
                                             <i class="fa fa-refresh" aria-hidden="true"></i>
-                                      
+
                                         </div>
                                     </div>
                                 </a>
@@ -300,7 +313,7 @@
                         </div>
                     </div>
                     <div class="row row-middle">
-                    <div class="col-md-4 card-user1" id="col1">
+                        <div class="col-md-4 card-user1" id="col1">
                             <div class="card card-user">
                                 <div class="image">
                                 </div>
@@ -339,9 +352,9 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
-                    
+
                 </div>
 
             </div>

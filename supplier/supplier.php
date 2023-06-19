@@ -80,16 +80,34 @@
                                     </div>
                                 </div>
                             </div>
-                           
                             <div class="mainmenu">
-                                <a href="/rais/supplier/shipping.php"><i
-                                        class="fa fa-truck"></i><span>Shipping</span></a>
+                                <a href="/rais/supplier/category.php"><i
+                                        class="fa fa-list"></i><span>Category</span></a>
+
+                            </div>
+                            <div class="mainmenu">
+                                <a href="/rais/supplier/manage-product.php"><i
+                                        class="fa fa-database"></i><span>Products</span></a>
+
+                            </div>
+                            <div class="mainmenu">
+                                <a href="/rais/supplier/shipping.php"><i class="fa fa-truck"></i><span>
+                                        Delivery</span></a>
                                 <div class="submenu">
 
                                 </div>
                             </div>
                             <div class="mainmenu">
-                                <a href="supplier.php"><i class="fa fa-book"></i><span>Request</span> </a>
+                                <a href="#"><i class="fa fa-book"></i><span>Request</span> </a>
+                                <div class="submenu">
+                                    <ul>
+                                        <li><a href="/rais/supplier/supplier.php"><i class="fa fa-comment"></i><span>
+                                                    Approved Request</span></a></li>
+                                        <li><a href="/rais/supplier/request.php"><i
+                                                    class="fa fa fa-comments"></i><span>All
+                                                    Request</span></a></li>
+                                    </ul>
+                                </div>
 
                             </div>
                             <div class="section line-sec">
@@ -101,10 +119,10 @@
                             </div>
                             <div class="section mt-4">
 
-                                <div class="container">
-                                    <a href="#" class="profile-key">
+                                <div class="container text-light">
+                                    <a href="" class="profile-key">
                                         <i class="fa fa-user"></i>
-                                        <span> Profile</span>
+                                        <span id="update-user"> Profile</span>
                                     </a>
                                 </div>
                             </div>
@@ -131,6 +149,26 @@
                         <div class="col-sm-6 col-lg-6 col-md-6">
                             <div class="h3">Dashboard</div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="section mt-1">
+                                <div class="container-fluid text-dark">
+                                    <h4 class="pull-left">Logged in as:&nbsp;<strong style="color: #0066cc;">
+                                            <?php
+                                  $conn = $pdo->open();
+                                  $stmt = $conn->prepare("SELECT firstname,lastname FROM users WHERE user_id=:user_id");
+                                  $stmt->execute(['user_id'=>$_SESSION['supplier']]);
+                                  $crow =  $stmt->fetch();
+                                  $firstnm=$crow['firstname'];
+                                  $lastname=$crow['lastname'];
+                                  echo "<td class='text-primary'>$firstnm  $lastname</td>";
+                                  $pdo->close();
+                                ?>
+                                        </strong> </h4>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                     </div>
                 </div>
                 <!--section for dashbord content here-->
@@ -286,7 +324,7 @@
                                     <div class="container-fluid">
                                         <div class="card">
                                             <div class="card-header">
-                                                <div class="h5">Manage Request's</div>
+                                                <div class="h5">Approved Request's</div>
                                             </div>
                                             <div class="card-body">
                                                 <div class="content">
@@ -439,7 +477,7 @@
                                 role="document">
                                 <div class="modal-content modal-style">
                                     <div class="modal-header">
-                                        <h5 class="modal-title text-success" id="modalTitleId">Shipping Approval</h5>
+                                        <h5 class="modal-title text-success" id="modalTitleId">Delivery Approval</h5>
                                     </div>
                                     <div class="modal-body">
                                         <!--form for catching user  data-->
@@ -448,7 +486,7 @@
                                             <input type="hidden" class="requestid" name="request_id">
                                             <div class="row">
                                                 <div class="col-md-12 col-lg-12 col-sm-12 mt-2">
-                                                    <label for="status" class="col-sm-12 control-label">Shipping
+                                                    <label for="status" class="col-sm-12 control-label">Delivery
                                                         Status</label>
                                                     <div class="form-group mt-1">
                                                         <input class="form-check-input" type="radio" name="types" id=""
@@ -457,7 +495,7 @@
                                                         <input class="form-check-input" type="radio" name="types" id=""
                                                             value="0" autocomplete="off" tabindex="-1" required>
                                                         <label class="form-check-label" for="blocked">Waiting
-                                                            Shipping</label>
+                                                        </label>
                                                     </div>
                                                 </div>
 
@@ -476,6 +514,115 @@
                             </div>
                         </div>
                         <!--Request modals ends-->
+
+
+                        <!--Upade info modal start--->
+                        <div class="modal fade" id="update-u" tabindex="-1" data-bs-backdrop="static"
+                            data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg"
+                                role="document">
+                                <div class="modal-content modal-style">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-success" id="modalTitleId">Edit Profile Info</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!--form for catching user  data-->
+                                        <form class="form-horizontal" method="POST" action="users_edit.php"
+                                            enctype="multipart/form-data">
+                                            <input type="hidden" class="userid" name="user_id">
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 col-sm-12 mt-2">
+                                                    <label for="edit_firstname" class="col-sm-3 control-label">First
+                                                        Name <span class='text-danger'>*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text" id="inputGroupPrepend">
+                                                            @
+                                                        </span>
+                                                        <input type="text" class="form-control" id="edit_firstname"
+                                                            name="firstname" autocomplete="off" tabindex="-1" required>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6 col-lg-6 col-sm-12 mt-2">
+                                                    <label for="edit_lastname" class="col-sm-3 control-label">Last Name
+                                                        <span class='text-danger'>*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text" id="inputGroupPrepend">
+                                                            @
+                                                        </span>
+                                                        <input type="text" class="form-control" id="edit_lastname"
+                                                            name="lastname" autocomplete="off" tabindex="-1" required>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 col-lg-6 col-sm-12 mt-2">
+                                                    <label for="edit_email" class="col-sm-3 control-label">Email <span
+                                                            class='text-danger'>*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text" id="inputGroupPrepend">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </span>
+                                                        <input type="text" class="form-control" id="edit_email"
+                                                            name="email" autocomplete="off" tabindex="-1" required>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 col-sm-12 mt-2">
+                                                    <label for="edit_phone" class="col-sm-3 control-label">Phone <span
+                                                            class='text-danger'>*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text" id="inputGroupPrepend">
+                                                            <i class="fa fa-phone"></i>
+                                                        </span>
+                                                        <input type="text" class="form-control" id="edit_phone"
+                                                            name="phone" autocomplete="off" tabindex="-1" required>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 col-lg-6 col-sm-12 mt-2">
+                                                    <label for="edit_address" class="col-sm-3 control-label">Address
+                                                        <span class='text-danger'>*</span></label>
+                                                    <div class="input-group">
+                                                        <textarea class="form-control" id="edit_address" name="address"
+                                                            autocomplete="off" tabindex="-1" required></textarea>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-6 col-lg-6 col-sm-12 mt-2">
+                                                    <label for="edit_password" class="col-sm-3 control-label"> Password
+                                                        <span class='text-danger'>*</span></label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text" id="inputGroupPrepend">
+                                                            <i class="fa fa-key"></i>
+                                                        </span>
+                                                        <input type="password" class="form-control" id="edit_password"
+                                                            name="password" autocomplete="off" tabindex="-1" required>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!--form end here-->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-danger btn-sm pull-left "
+                                            data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                                        <button type="submit" class="btn btn-outline-success btn-sm" name="edit"><i
+                                                class="fa fa-check-square-o"></i> Update</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--update info modal end --->
                     </div>
 
                 </div>
@@ -502,11 +649,11 @@
             getRow(request_id);
         });
 
-        $(document).on('click', '.edit', function(e) {
+        $(document).on('click', '#update-user', function(e) {
             e.preventDefault();
-            $('#edit').modal('show');
-            var request_id = $(this).data('request_id');
-            getRow(request_id);
+            $('#update-u').modal('show');
+            var user_id = $(this).data('user_id');
+            getRow(user_id);
         });
 
 

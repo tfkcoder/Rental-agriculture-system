@@ -38,7 +38,7 @@
     <!--parts for dashbord start here-->
     <div class="section" id="body-id">
         <div class="row">
-        <div class="col-sm-2 side-nav sidebar-collapse">
+            <div class="col-sm-2 side-nav sidebar-collapse">
                 <!--begining side bar nav-->
                 <div class="sidebar-collapse side-nav">
                     <!-- Begin side nav profile -->
@@ -54,6 +54,7 @@
                             </div>
                         </div>
                         <div class="logo-element text-center text-light mt-4">RAIS | Farmer</div>
+                        
                     </div>
                     <!-- End side nav profile -->
                     <!--bigning menu-->
@@ -85,7 +86,7 @@
                             </div>
                             <div class="mainmenu">
                                 <a href="/rais/farmers/shipping.php"><i
-                                        class="fa fa-truck"></i><span>Shipping</span></a>
+                                        class="fa fa-truck"></i><span>Delivery</span></a>
                                 <div class="submenu">
 
                                 </div>
@@ -133,6 +134,26 @@
                         <div class="col-sm-6 col-lg-6 col-md-6">
                             <div class="h3">Dashboard</div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="section mt-1">
+                                <div class="container-fluid text-dark">
+                                    <h4 class="pull-left">Logged in as:&nbsp;<strong style="color: #0066cc;">
+                                            <?php
+                                  $conn = $pdo->open();
+                                  $stmt = $conn->prepare("SELECT firstname,lastname FROM users WHERE user_id=:user_id");
+                                  $stmt->execute(['user_id'=>$_SESSION['farmer']]);
+                                  $crow =  $stmt->fetch();
+                                  $firstnm=$crow['firstname'];
+                                  $lastname=$crow['lastname'];
+                                  echo "<td class='text-primary'>$firstnm  $lastname</td>";
+                                  $pdo->close();
+                                ?>
+                                        </strong> </h4>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                     </div>
                 </div>
                 <!--section for dashbord content here-->
@@ -154,8 +175,8 @@
                                                 <p class="card-title" id='0101'>
                                                     <?php
                                                     $conn = $pdo->open();
-                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request");
-                                                    $stmt->execute();
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE user_id=:user_id");
+                                                    $stmt->execute(['user_id'=>$_SESSION['farmer']]);
                                                     $crow =  $stmt->fetch();
                                                      echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
                                                      $pdo->close();
@@ -164,6 +185,7 @@
 
                                             </div>
                                         </div>
+                                       
                                     </div>
                                 </div>
                                 <a href="/rais/farmers/request.php">
@@ -190,10 +212,11 @@
                                             <div class="numbers">
                                                 <p class="card-category">Approved </p>
                                                 <p class="card-title" id='0102'>
-                                                <?php
+                                                    <?php
                                                     $conn = $pdo->open();
-                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE status1=:status1");
-                                                    $stmt->execute(['status1'=>1]);
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE status1=1 AND user_id=:user_id");
+                                                     $stmt->execute(['user_id'=>$_SESSION['farmer']]);
+                                                     //$stmt->execute(['user_id'=>$_SESSION['farmer']]);
                                                     //$stmt->execute();
                                                      $crow =  $stmt->fetch();
                                                      echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
@@ -228,10 +251,10 @@
                                             <div class="numbers">
                                                 <p class="card-category">Pending</p>
                                                 <p class="card-title" id='0103'>
-                                                <?php
+                                                    <?php
                                                     $conn = $pdo->open();
-                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE status1=:status1");
-                                                    $stmt->execute(['status1'=>0]);
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE status1=0 AND user_id=:user_id");
+                                                    $stmt->execute(['user_id'=>$_SESSION['farmer']]);
                                                     //$stmt->execute();
                                                      $crow =  $stmt->fetch();
                                                      echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
@@ -294,19 +317,36 @@
                                                 <div class="container-fluid">
                                                     <form method="POST" action="request_add.php"
                                                         enctype="multipart/form-data">
+                                                        <label for="formId1">Equipment <span
+                                                                class="text-danger">*</span> </label>
+                                                        <div class="form-group">
+                                                            <select class="form-control input-md" id="select_category"
+                                                                name="equipment">
+                                                                <option value="0">---Select category----</option>
+                                                                <?php
+                                                                            $conn = $pdo->open();
 
-                                                        <div class="form-floating mb-3">
-                                                            <input type="text" class="form-control" name="equipment"
-                                                                id="formId1" placeholder="" required>
-                                                            <label for="formId1">Equipment</label>
+                                                                            $stmt = $conn->prepare("SELECT * FROM category");
+                                                                            $stmt->execute();
+
+                                                                            foreach($stmt as $crow){
+                                                                              $selected = ($crow['category_id'] == $cat_id) ? 'selected' : ''; 
+                                                                              echo "
+                                                                                <option value='".$crow['name']."' ".$selected.">".$crow['name']."</option>
+                                                                              ";
+                                                                            }
+
+                                                                            $pdo->close();
+                                                                          ?>
+                                                            </select>
                                                         </div>
-                                                        <div class="form-floating mb-3">
+                                                        <div class="form-floating mt-4 mb-3">
                                                             <input type="number" class="form-control" name="quantity"
                                                                 id="formId1" min="1" placeholder="" required>
                                                             <label for="formId1">Quantity</label>
                                                         </div>
                                                         <div class="form-floating mb-3">
-                                                            <input type="number" class="form-control"  name="days"
+                                                            <input type="number" class="form-control" name="days"
                                                                 id="formId1" min="1" placeholder="" required>
                                                             <label for="formId1">Days</label>
                                                         </div>
@@ -353,17 +393,17 @@
                                                             <th>Quantity</th>
                                                             <th>Day Of Use</th>
                                                             <th>Status</th>
-                                                            <th>Shipping</th>
+                                                            <th>Delivery</th>
                                                             <th>Action</th>
                                                         </thead>
                                                         <tbody>
                                                             <?php
                                                                $conn = $pdo->open();
                                                                try{
-                                                                    $stmt = $conn->prepare("SELECT * FROM request WHERE types=:types");
+                                                                    $stmt = $conn->prepare("SELECT * FROM request WHERE user_id=:user_id");
                                 
                                                                     //$stmt->execute(['types'=>1]);
-                                                                     $stmt->execute(['types'=>0]);
+                                                                     $stmt->execute(['user_id'=>$_SESSION['farmer']]);
                                                                     
                                                                     foreach($stmt as $row){
                                                                         $status1 = ($row['status1'])? '<div  class="p  rounded-pill w-40 text-center  text-success">Approved </div>' : '<span class="label div text-warning rounded-pill w-40 text-center "> Pending </span>';
@@ -398,7 +438,7 @@
                                                             <th>Quantity</th>
                                                             <th>Day Of Use</th>
                                                             <th>Status</th>
-                                                            <th>Shipping</th>
+                                                            <th>Delivery</th>
                                                             <th>Action</th>
                                                         </tfoot>
                                                     </table>
@@ -425,13 +465,14 @@
                                             <input type="hidden" class="requestid" name="request_id">
                                             <div class="text-center">
                                                 <div class="h5 p text-primary">
-                                                    
+
                                                 </div>
                                                 <h3 class="bold equipment"></h3>
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default btn-sm btn-outline-warning pull-left"
+                                        <button type="button"
+                                            class="btn btn-default btn-sm btn-outline-warning pull-left"
                                             data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
                                         <button type="submit" class="btn btn-outline-danger btn-sm" name="delete"><i
                                                 class="fa fa-trash"></i>
@@ -480,8 +521,8 @@
                                                     <label for="edit" class="col-sm-3 control-label">Day Of Use<span
                                                             class='text-danger'>*</span></label>
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" id="edit_days" name="days"
-                                                            autocomplete="off" tabindex="-1" required>
+                                                        <input type="text" class="form-control" id="edit_days"
+                                                            name="days" autocomplete="off" tabindex="-1" required>
 
                                                     </div>
 
@@ -520,7 +561,6 @@
             $('#add-modal').modal('show');
 
         });
-
         $(document).on('click', '.delete', function(e) {
             e.preventDefault();
             $('#delete').modal('show');
@@ -553,6 +593,18 @@
                 $('#edit_quantity').val(response.quantity);
                 $('#edit_days').val(response.days);
                 $('.equipment').html(response.equipment);
+            }
+        });
+    }
+
+    function getCategory() {
+        $.ajax({
+            type: 'POST',
+            url: 'users_row.php',
+            dataType: 'json',
+            success: function(response) {
+                $('#user').append(response);
+                $('#user_add').append(response);
             }
         });
     }

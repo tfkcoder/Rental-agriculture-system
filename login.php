@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/rais/settings/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/rais/settings/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/rais/settings/main.css">
-    <link rel="stylesheet" href="/rais/settings/form2.css">
+    <link rel="stylesheet" href="/rais/settings/form3.css">
     <link rel="stylesheet" href="/rais/settings/font-awesome/css/font-awesome.min.css">
     <script src="https://www.gstatic.com/charts/loader.js">
     </script>
@@ -71,8 +71,8 @@
                                 <span class="input-group-text">
                                     <i class="icon fa fa-envelope "></i>
                                 </span>
-                                <input type="email" class="form-control b" id="inputEmail" placeholder="Enter email"
-                                    name="email" autocomplete="off" tabindex="-1">
+                                <input type="email" class="form-control " id="inputEmail" placeholder="Enter email"
+                                    name="email" autocomplete="off" tabindex="-1" required>
                             </div>
                         </div>
                         <div class="mb-3 field password ">
@@ -81,7 +81,7 @@
                                     <i class="icon fa fa-key"></i>
                                 </span>
                                 <input type="password" class="form-control " id="inputPassword" placeholder="Password"
-                                    name="password" autocomplete="off" tabindex="-1">
+                                    name="password" autocomplete="off" tabindex="-1" required>
 
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                 </div>
                 <div class="card-footer log-footer">
                     <a href="/rais/register.php" class='text-canter'>
-                        Don't have account ?  <span class="text-center text-primary"> Signup </span>
+                        Don't have account ?  <span class="ml-2 text-primary"> Signup </span>
                     </a>
                 </div>
             </div>

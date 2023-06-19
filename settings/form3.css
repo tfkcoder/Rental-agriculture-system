@@ -19,6 +19,9 @@ body{
     margin-bottom: 40px;
     border-top: 2px solid rgb(67, 145, 235);
 }
+select option {
+    background-color: #00000000;
+}
 .cc-hr hr{
      color: #d6cfcf;
      height: 2px;

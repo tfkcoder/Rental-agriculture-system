@@ -38,7 +38,7 @@
     <!--parts for dashbord start here-->
     <div class="section" id="body-id">
         <div class="row">
-            <div class="col-sm-2 side-nav sidebar-collapse">
+        <div class="col-sm-2 side-nav sidebar-collapse">
                 <!--begining side bar nav-->
                 <div class="sidebar-collapse side-nav">
                     <!-- Begin side nav profile -->
@@ -54,6 +54,7 @@
                             </div>
                         </div>
                         <div class="logo-element text-center text-light mt-4">RAIS | Farmer</div>
+                        
                     </div>
                     <!-- End side nav profile -->
                     <!--bigning menu-->
@@ -85,7 +86,7 @@
                             </div>
                             <div class="mainmenu">
                                 <a href="/rais/farmers/shipping.php"><i
-                                        class="fa fa-truck"></i><span>Shipping</span></a>
+                                        class="fa fa-truck"></i><span>Delivery</span></a>
                                 <div class="submenu">
 
                                 </div>
@@ -133,6 +134,26 @@
                         <div class="col-sm-6 col-lg-6 col-md-6">
                             <div class="h3">Dashboard</div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="section mt-1">
+                                <div class="container-fluid text-dark">
+                                    <h4 class="pull-left">Logged in as:&nbsp;<strong style="color: #0066cc;">
+                                            <?php
+                                  $conn = $pdo->open();
+                                  $stmt = $conn->prepare("SELECT firstname,lastname FROM users WHERE user_id=:user_id");
+                                  $stmt->execute(['user_id'=>$_SESSION['farmer']]);
+                                  $crow =  $stmt->fetch();
+                                  $firstnm=$crow['firstname'];
+                                  $lastname=$crow['lastname'];
+                                  echo "<td class='text-primary'>$firstnm  $lastname</td>";
+                                  $pdo->close();
+                                ?>
+                                        </strong> </h4>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                     </div>
                 </div>
                 <!--section for dashbord content here-->
@@ -268,7 +289,6 @@
     <script src="/rais/settings/main.js"></script>
 
     <script>
-
     $('#select_category').change(function() {
         var val = $(this).val();
         if (val == 0) {

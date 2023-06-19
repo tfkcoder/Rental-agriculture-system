@@ -31,19 +31,19 @@
     <script src="/rais/settings/DataTables/datatables.min.js"></script>
     <link rel="stylesheet" href="/rais/settings/DataTables/datatables.min.css">
 
-    <title>RAIS | Farmer</title>
+    <title>RAIS | Supplier</title>
 </head>
 
 <body onload="load()">
     <!--parts for dashbord start here-->
     <div class="section" id="body-id">
         <div class="row">
-        <div class="col-sm-2 side-nav sidebar-collapse">
+            <div class="col-sm-2 side-nav sidebar-collapse">
                 <!--begining side bar nav-->
                 <div class="sidebar-collapse side-nav">
                     <!-- Begin side nav profile -->
                     <div class="nav-header">
-                        <div class="section profile-element-c bg-warning">
+                        <div class="section profile-element-c bg-primary">
                             <div class="dropdown profile-element text-center">
                                 <a>
                                     <img src="/rais/images/sunflower.jpg" class="img-circle" alt="photo">
@@ -53,8 +53,8 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="logo-element text-center text-light mt-4">RAIS | Farmer</div>
-                       
+                        <div class="logo-element text-center text-light mt-4">RAIS | Supplier</div>
+
                     </div>
                     <!-- End side nav profile -->
                     <!--bigning menu-->
@@ -69,7 +69,7 @@
                             </div>
                             <div class="section profile-top">
                                 <li>
-                                    <a href="/rais/farmers/farmer.php"><span>Dashboard </span><i
+                                    <a href="/rais/supplier/supplier.php"><span>Dashboard </span><i
                                             class="fa fa-windows text-light"></i></a>
                                 </li>
 
@@ -82,17 +82,33 @@
                                 </div>
                             </div>
                             <div class="mainmenu">
-                                <a href="products.php"><i class="fa fa-users"></i><span>Equipments</span></a>
+                                <a href="/rais/supplier/category.php"><i
+                                        class="fa fa-list"></i><span>Category</span></a>
+
                             </div>
                             <div class="mainmenu">
-                                <a href="/rais/farmers/shipping.php"><i
+                                <a href="/rais/supplier/manage-product.php"><i
+                                        class="fa fa-database"></i><span>Products</span></a>
+
+                            </div>
+                            <div class="mainmenu">
+                                <a href="/rais/supplier/shipping.php"><i
                                         class="fa fa-truck"></i><span>Delivery</span></a>
                                 <div class="submenu">
 
                                 </div>
                             </div>
                             <div class="mainmenu">
-                                <a href="request.php"><i class="fa fa-book"></i><span>Request</span> </a>
+                                <a href="#"><i class="fa fa-book"></i><span>Request</span> </a>
+                                <div class="submenu">
+                                    <ul>
+                                        <li><a href="/rais/supplier/supplier.php"><i class="fa fa-comment"></i><span>
+                                                    Approved Request</span></a></li>
+                                        <li><a href="/rais/supplier/request.php"><i
+                                                    class="fa fa fa-comments"></i><span>All
+                                                    Request</span></a></li>
+                                    </ul>
+                                </div>
 
                             </div>
                             <div class="section line-sec">
@@ -141,7 +157,7 @@
                                             <?php
                                   $conn = $pdo->open();
                                   $stmt = $conn->prepare("SELECT firstname,lastname FROM users WHERE user_id=:user_id");
-                                  $stmt->execute(['user_id'=>$_SESSION['farmer']]);
+                                  $stmt->execute(['user_id'=>$_SESSION['supplier']]);
                                   $crow =  $stmt->fetch();
                                   $firstnm=$crow['firstname'];
                                   $lastname=$crow['lastname'];
@@ -158,8 +174,8 @@
                 </div>
                 <!--section for dashbord content here-->
                 <div class="content">
-                    <div class="row mt-4">
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats">
                                 <div class="card-body ">
                                     <div class="row">
@@ -171,23 +187,23 @@
                                         </div>
                                         <div class="col-7 col-md-8">
                                             <div class="numbers">
-                                                <p class="card-category">Approved</p>
+                                                <p class="card-category">Request</p>
                                                 <p class="card-title" id='0101'>
                                                     <?php
                                                     $conn = $pdo->open();
-                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE status1=1 AND user_id=:user_id");
-                                                    $stmt->execute(['user_id'=>$_SESSION['farmer']]);
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request");
+                                                    $stmt->execute();
                                                     $crow =  $stmt->fetch();
                                                      echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
-                                                     $pdo->close();
-                                                ?>
-                                                </p>
 
+                                                     $pdo->close();
+                                                    ?>
+                                                <p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <a href="/rais/farmers/request.php">
+                                <a href="/rais/rentalsp/request.php">
                                     <div class="card-footer card-foote-style">
                                         <div class="stats text-center">
                                             <i class="fa fa-refresh"></i>
@@ -197,26 +213,25 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats">
                                 <div class="card-body ">
                                     <div class="row">
                                         <div class="col-5 col-md-4">
                                             <div class="icon-big text-center icon-warning">
                                                 <i class="nc-icon nc-money-coins text-success"></i>
-                                                <i class="fa fa-check-square text-success fa-4x" aria-hidden="true"></i>
+                                                <i class="fa fa-thumbs-up text-success fa-4x" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                         <div class="col-7 col-md-8">
                                             <div class="numbers">
-                                                <p class="card-category">Delivery</p>
+                                                <p class="card-category">Approved </p>
                                                 <p class="card-title" id='0102'>
                                                     <?php
                                                     $conn = $pdo->open();
-                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE types=1 AND status1=1 AND user_id=:user_id");
-                                                    $stmt->execute(['user_id'=>$_SESSION['farmer']]);
-                                                    //$stmt->execute();
-                                                     $crow =  $stmt->fetch();
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE status1=:status1");
+                                                    $stmt->execute(['status1'=>1]);
+                                                    $crow =  $stmt->fetch();
                                                      echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
                                                      $pdo->close();
                                                     ?>
@@ -225,7 +240,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="/rais/farmers/request.php">
+                                <a href="/rais/rentalsp/request.php">
                                     <div class="card-footer card-foote-style">
                                         <div class="stats text-center">
                                             <i class="fa fa-refresh" aria-hidden="true"></i>
@@ -235,7 +250,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
                             <div class="card card-stats">
                                 <div class="card-body ">
                                     <div class="row">
@@ -251,11 +266,11 @@
                                                 <p class="card-title" id='0103'>
                                                     <?php
                                                     $conn = $pdo->open();
-                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE types=0 AND status1=1 AND  user_id=:user_id");
-                                                    $stmt->execute(['user_id'=>$_SESSION['farmer']]);
-                                                    //$stmt->execute();
-                                                     $crow =  $stmt->fetch();
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE status1=:status1");
+                                                    $stmt->execute(['status1'=>0]);
+                                                    $crow =  $stmt->fetch();
                                                      echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
+
                                                      $pdo->close();
                                                     ?>
                                                 <p>
@@ -263,10 +278,48 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="/rais/farmers/request.php">
+                                <a href="/rais/rentalsp/request.php">
                                     <div class="card-footer card-foote-style">
                                         <div class="stats text-center">
                                             <i class="fa fa-refresh"></i>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-5 col-md-4">
+                                            <div class="icon-big text-center icon-warning">
+                                                <i class="nc-icon nc-favourite-28 text-primary"></i>
+                                                <i class="fa fa-truck text-dark fa-4x" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-md-8">
+                                            <div class="numbers">
+                                                <p class="card-category">Delivery</p>
+                                                <p class="card-title">
+                                                    <?php
+                                                    $conn = $pdo->open();
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE types=:types");
+                                                    $stmt->execute(['types'=>1]);
+                                                    $crow =  $stmt->fetch();
+                                                     echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
+
+                                                     $pdo->close();
+                                                    ?>
+                                                <p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="/rais/rentalsp/request.php">
+                                    <div class="card-footer card-foote-style">
+                                        <div class="stats text-center">
+                                            <i class="fa fa-refresh" aria-hidden="true"></i>
+
                                         </div>
                                     </div>
                                 </a>
@@ -301,56 +354,51 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row row-middle">
-                        
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="section">
-                                <div class="content">
-                                    <div class="container-fluid">
-                                        <div class="card">
-                                            <div class="card-header ">
-                                                <div class="h5 ">Delivered Request's</div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="content">
-                                                    <table id="example"
-                                                        class="table table-bordered table-striped table-hover"
-                                                        style="width:100%">
-                                                        <thead>
-                                                            <th>Equipment</th>
-                                                            <th>Quantity</th>
-                                                            <th>Day Of Use</th>
-                                                            <th>Day's Left</th>
-                                                            <th>Status</th>
-                                                            <th>Delivery</th>
-                                                            <th>Action</th>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
+                    <div class="row row-bottom">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card ">
+                                <div class="card-header ">
+                                    <h5 class="card-title">Request List</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="content">
+                                        <table id="example" class="table table-bordered table-striped table-hover"
+                                            style="width:100%">
+                                            <thead>
+                                                <th>Equipment</th>
+                                                <th>Quantity</th>
+                                                <th>Date of Request</th>
+                                                <th>Day Of Use</th>
+                                                <th>Status</th>
+                                                <th>Delivery</th>
+                                                <th>Action</th>
+                                            </thead>
+                                            <tbody>
+                                                <?php
                                                                $conn = $pdo->open();
                                                                try{
-                                                                    $stmt = $conn->prepare("SELECT * FROM request WHERE types=1 AND user_id=:user_id");
+                                                                    $stmt = $conn->prepare("SELECT * FROM request ");
                                 
                                                                     //$stmt->execute(['types'=>1]);
-                                                                     $stmt->execute(['user_id'=>$_SESSION['farmer']]);
+                                                                     //$stmt->execute(['status1'=>1]);
+                                                                     $stmt->execute();
                                                                     
                                                                     foreach($stmt as $row){
                                                                         $status1 = ($row['status1'])? '<div  class="p  rounded-pill w-40 text-center  text-success">Approved </div>' : '<div class="text-center" ><span class="label div text-danger rounded-pill w-40 text-center "> Pending </span> </div>';
                                                                         $types = ($row['types'])? '<div  class="p  rounded-pill w-40 text-center  text-success">Yes </div>' : '<div class="text-center"> <span class="label div text-danger rounded-pill w-40 text-center "> No </span></div> ';
-                                                                        $days_left_str = ($row['days_left'] > 0) ? $row['days_left'] . " days" : " <p class='text-center text-danger'>Expired</p> ";
 
                                                                         echo "
                                                                         <tr>
                                     
                                                                             <td>".$row['equipment']."</td>
                                                                             <td>".$row['quantity']."</td>
+                                                                            <td>".$row['created_on']."</td>
                                                                             <td>".$row['days']."</td>
-                                                                            <td class='text-center text-primary'>".$days_left_str."</td>
                                                                             <td>".$status1."</td>
                                                                             <td>".$types."</td>
                                                                             <td>
                                                                             <button class='btn  btn-outline-success btn-sm edit btn-flat' title='Edit Record' data-request_id='".$row['request_id']."'><i class='fa fa-edit'></i></button>
-                                                                            <button class='btn btn-outline-danger btn-sm delete btn-flat' title='Delete Record' data-request_id='".$row['request_id']."'><i class='fa fa-trash'></i></button>
+                                                                            <button class='btn  btn-outline-danger btn-sm delete btn-flat' title='Delete Record' data-request_id='".$row['request_id']."'><i class='fa fa-trash'></i></button>
                                                                             </td>
                                                                         </tr>
                                                                         ";
@@ -363,119 +411,22 @@
                                                                     $pdo->close();
                                                                 ?>
 
-                                                        </tbody>
-                                                        <tfoot>
-                                                            <th>Equipment</th>
-                                                            <th>Quantity</th>
-                                                            <th>Day Of Use</th>
-                                                            <th>Day's Left</th>
-                                                            <th>Status</th>
-                                                            <th>Delivery</th>
-                                                            <th>Action</th>
-                                                        </tfoot>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            </tbody>
+                                            <tfoot>
+                                                <th>Equipment</th>
+                                                <th>Quantity</th>
+                                                <th>Date of Request</th>
+                                                <th>Day Of Use</th>
+                                                <th>Status</th>
+                                                <th>Delivery</th>
+                                                <th>Action</th>
+                                            </tfoot>
+                                        </table>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-
-                    </div>
-                    <div class="row row-bottom">
-                        <!--Request modals start-->
-                        <!-- Delete user modal-->
-                        <div class="modal fade" id="delete">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title"><b>Deleting...</b></h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class="form-horizontal" method="POST" action="request_delete.php">
-                                            <input type="hidden" class="requestid" name="request_id">
-                                            <div class="text-center">
-                                                <div class="h5 p text-primary">
-
-                                                </div>
-                                                <h3 class="bold equipment"></h3>
-                                            </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button"
-                                            class="btn btn-default btn-sm btn-outline-warning pull-left"
-                                            data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-                                        <button type="submit" class="btn btn-outline-danger btn-sm" name="delete"><i
-                                                class="fa fa-trash"></i>
-                                            Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!---EDIT USER MODAL----->
-                        <div class="modal fade" id="edit" tabindex="-1" data-bs-backdrop="static"
-                            data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md"
-                                role="document">
-                                <div class="modal-content modal-style">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title text-success" id="modalTitleId">Edit Request</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!--form for catching user  data-->
-                                        <form class="form-horizontal" method="POST" action="request_edit.php"
-                                            enctype="multipart/form-data">
-                                            <input type="hidden" class="requestid" name="request_id">
-                                            <div class="row">
-                                                <div class="col-md-12 col-lg-12 col-sm-12 mt-2">
-                                                    <label for="edit" class="col-sm-3 control-label">Equipment<span
-                                                            class='text-danger'>*</span></label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="edit_equipment"
-                                                            name="equipment" autocomplete="off" tabindex="-1" required>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="col-md-12 col-lg-12 col-sm-12 mt-2">
-                                                    <label for="edit" class="col-sm-3 control-label">Quantity<span
-                                                            class='text-danger'>*</span></label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="edit_quantity"
-                                                            name="quantity" autocomplete="off" tabindex="-1" required>
-
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12 col-lg-12 col-sm-12 mt-2">
-                                                    <label for="edit" class="col-sm-3 control-label">Day Of Use<span
-                                                            class='text-danger'>*</span></label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="edit_days"
-                                                            name="days" autocomplete="off" tabindex="-1" required>
-
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                            <!--form end here-->
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-danger btn-sm pull-left "
-                                            data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-                                        <button type="submit" class="btn btn-outline-success btn-sm" name="edit"><i
-                                                class="fa fa-check-square-o"></i> Update</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Request modals ends-->
                     </div>
 
                 </div>
@@ -483,17 +434,92 @@
             </div>
         </div>
     </div>
+    <div class="section">
+        <div class="modal fade" id="delete">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"><b>Deleting...</b></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" method="POST" action="request_delete.php">
+                            <input type="hidden" class="requestid" name="request_id">
+                            <div class="text-center">
+                                <div class="h5 p text-primary">
+
+                                </div>
+                                <h3 class="bold equipment"></h3>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default btn-sm btn-outline-warning pull-left"
+                            data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="submit" class="btn btn-outline-danger btn-sm" name="delete"><i
+                                class="fa fa-trash"></i>
+                            Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+            aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+                <div class="modal-content modal-style">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-success" id="modalTitleId">Delivery Approval</h5>
+                    </div>
+                    <div class="modal-body">
+                        <!--form for catching user  data-->
+                        <form class="form-horizontal" method="POST" action="request_edit2.php"
+                            enctype="multipart/form-data">
+                            <input type="hidden" class="requestid" name="request_id">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 col-sm-12 mt-2">
+                                    <label for="edit" class="col-sm-3 control-label">Request Status
+                                    </label>
+                                    <select class="form-select" name="status1" id="validationCustom04"
+                                        autocomplete="off" tabindex="-1" required>
+                                        <option selected> Set request status </option>
+                                        <option value="0">Pending</option>
+                                        <option value="1">Approved</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 mt-2">
+                                    <label for="status" class="col-sm-12 control-label">Delivery
+                                        Status</label>
+                                    <div class="form-group mt-1">
+                                        <input class="form-check-input" type="radio" name="types" id="" value="1"
+                                            checked autocomplete="off" tabindex="-1" required>
+                                        <label class="form-check-label" for="active">Shipped</label>
+                                        <input class="form-check-input" type="radio" name="types" id="" value="0"
+                                            autocomplete="off" tabindex="-1" checked required>
+                                        <label class="form-check-label" for="blocked">Waiting
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!--form end here-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger btn-sm pull-left "
+                            data-bs-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="submit" class="btn btn-outline-success btn-sm" name="edit"><i
+                                class="fa fa-check-square-o"></i> Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--Script main here-->
     <script src="/rais/settings/main.js"></script>
-
+    <!--Counter Js-->
     <script>
     $(function() {
-
-        $(document).on('click', '.add-user', function(e) {
-            e.preventDefault();
-            $('#add-modal').modal('show');
-
-        });
 
         $(document).on('click', '.delete', function(e) {
             e.preventDefault();
@@ -531,17 +557,6 @@
         });
     }
     </script>
-    <!--ALERT SCRIPT-->
-    <script>
-    $('.toast').toast(option)
-
-    var alertList = document.querySelectorAll('.alert');
-    alertList.forEach(function(alert) {
-        new bootstrap.Alert(alert)
-    })
-    </script>
-
-
 </body>
 <!--Script for 3d charts-->
 <script>

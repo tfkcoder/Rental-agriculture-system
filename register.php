@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/rais/settings/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/rais/settings/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/rais/settings/main.css">
-    <link rel="stylesheet" href="/rais/settings/form2.css">
+    <link rel="stylesheet" href="/rais/settings/form3.css">
     <link rel="stylesheet" href="/rais/settings/font-awesome/css/font-awesome.min.css">
     <script src="https://www.gstatic.com/charts/loader.js">
     </script>

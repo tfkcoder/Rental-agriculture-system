@@ -19,6 +19,11 @@ body{
     margin-bottom: 40px;
     border-top: 2px solid rgb(0, 204, 255);
 }
+input::placeholder{
+    opacity: 0.5;
+    background-color: #000;
+    
+}
 .cc-hr hr{
      color: #d6cfcf;
      height: 2px;

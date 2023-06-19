@@ -52,6 +52,16 @@
                 //$stmt->execute(['created_on'=>$date]);
 				$_SESSION['success'] = 'Account created successfully...!';
 
+                
+                $action=" Create user : $firstname $lastname";
+                $user_id=$_SESSION['admin'];
+                $stmt=$conn->prepare("INSERT INTO system_logs (user_id,action1,date) VALUES (:user_id,:action1,:date)");
+                $stmt->bindParam(':action1',$action);
+                $stmt->bindParam(':user_id',$user_id);
+                $stmt->bindParam(':date',$now);
+                $stmt->execute();
+                   
+
 			}
 			catch(PDOException $e){
 				$_SESSION['error'] = $e->getMessage();

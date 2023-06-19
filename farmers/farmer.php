@@ -26,9 +26,11 @@
     <script src="/datatable/js/dataTables.bootstrap.js"></script>
     <link rel="stylesheet" href="/DataTables/DataTables-1.13.4/css/">
     <link rel="stylesheet" href="/DataTables/datatables.css">
+    <link rel="stylesheet" href="/rais/settings/css/toastr/toastr.min.css" media="screen">
     <script src="/DataTables/datatables.min.js"></script>
 
     <script src="/rais/settings/DataTables/datatables.min.js"></script>
+    <script src="/rais/settings/counterUp/jquery.counterup.min.js"></script>
     <link rel="stylesheet" href="/rais/settings/DataTables/datatables.min.css">
 
     <title>RAIS | Farmer</title>
@@ -38,7 +40,7 @@
     <!--parts for dashbord start here-->
     <div class="section" id="body-id">
         <div class="row">
-        <div class="col-sm-2 side-nav sidebar-collapse">
+            <div class="col-sm-2 side-nav sidebar-collapse">
                 <!--begining side bar nav-->
                 <div class="sidebar-collapse side-nav">
                     <!-- Begin side nav profile -->
@@ -54,6 +56,7 @@
                             </div>
                         </div>
                         <div class="logo-element text-center text-light mt-4">RAIS | Farmer</div>
+                        
                     </div>
                     <!-- End side nav profile -->
                     <!--bigning menu-->
@@ -85,7 +88,7 @@
                             </div>
                             <div class="mainmenu">
                                 <a href="/rais/farmers/shipping.php"><i
-                                        class="fa fa-truck"></i><span>Shipping</span></a>
+                                        class="fa fa-truck"></i><span>Delivery</span></a>
                                 <div class="submenu">
 
                                 </div>
@@ -130,15 +133,35 @@
                 <!--section for dashbord -->
                 <div class="section mt-4">
                     <div class="row">
-                        <div class="col-sm-6 col-lg-6 col-md-6">
+                        <div class="col-sm-12 col-lg-6 col-md-6">
                             <div class="h3">Dashboard</div>
                         </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="section mt-1">
+                                <div class="container-fluid text-dark">
+                                    <h4 class="pull-left">Logged in as:&nbsp;<strong style="color: #0066cc;">
+                                            <?php
+                                  $conn = $pdo->open();
+                                  $stmt = $conn->prepare("SELECT firstname,lastname FROM users WHERE user_id=:user_id");
+                                  $stmt->execute(['user_id'=>$_SESSION['farmer']]);
+                                  $crow =  $stmt->fetch();
+                                  $firstnm=$crow['firstname'];
+                                  $lastname=$crow['lastname'];
+                                  echo "<td class='text-primary'>$firstnm  $lastname</td>";
+                                  $pdo->close();
+                                ?>
+                                        </strong> </h4>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                     </div>
                 </div>
                 <!--section for dashbord content here-->
-                <div class="content">
+                <div class="content mt-4">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="card card-stats">
                                 <div class="card-body ">
                                     <div class="row">
@@ -154,8 +177,8 @@
                                                 <p class="card-title">
                                                     <?php
                                                     $conn = $pdo->open();
-                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request");
-                                                    $stmt->execute();
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE user_id=:user_id");
+                                                    $stmt->execute(['user_id'=>$_SESSION['farmer']]);
                                                     $crow =  $stmt->fetch();
                                                      echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
 
@@ -176,7 +199,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="card card-stats">
                                 <div class="card-body ">
                                     <div class="row">
@@ -192,8 +215,8 @@
                                                 <p class="card-title">
                                                     <?php
                                                     $conn = $pdo->open();
-                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request");
-                                                    $stmt->execute();
+                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM request WHERE status1=1 AND user_id=:user_id");
+                                                    $stmt->execute(['user_id'=>$_SESSION['farmer']]);
                                                     $crow =  $stmt->fetch();
                                                      echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
 
@@ -214,7 +237,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="card card-stats">
                                 <div class="card-body ">
                                     <div class="row">
@@ -227,17 +250,20 @@
                                         <div class="col-7 col-md-8">
                                             <div class="numbers">
                                                 <p class="card-category">Equipments</p>
-                                                <p class="card-title">
+                                                <p class="card-title number counter">
                                                     <?php
                                                     $conn = $pdo->open();
                                                     $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM products");
                                                     $stmt->execute();
+                                                   
                                                     $crow =  $stmt->fetch();
+                                                    
                                                      echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
 
                                                      $pdo->close();
                                                     ?>
                                                 <p>
+
                                             </div>
                                         </div>
                                     </div>
@@ -246,44 +272,6 @@
                                     <div class="card-footer card-foote-style">
                                         <div class="stats text-center">
                                             <i class="fa fa-refresh"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="card card-stats">
-                                <div class="card-body ">
-                                    <div class="row">
-                                        <div class="col-5 col-md-4">
-                                            <div class="icon-big text-center icon-warning">
-                    
-                                                <i class="fa fa-bell text-info fa-4x" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-7 col-md-8">
-                                            <div class="numbers">
-                                                <p class="card-category">Comments</p>
-                                                <p class="card-title">
-                                                    <?php
-                                                    $conn = $pdo->open();
-                                                    $stmt = $conn->prepare("SELECT *, COUNT(*) AS numrows FROM category");
-                                                    $stmt->execute();
-                                                    $crow =  $stmt->fetch();
-                                                     echo "<h3 class='card-title' >".$crow['numrows']."</h3>";
-
-                                                     $pdo->close();
-                                                    ?>
-                                                <p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="/rais/farmers/farmer.php">
-                                    <div class="card-footer card-foote-style">
-                                        <div class="stats text-center">
-                                            <i class="fa fa-refresh" aria-hidden="true"></i>
-
                                         </div>
                                     </div>
                                 </a>
@@ -335,7 +323,7 @@
 
                         </div>
                         <div class="row row-bottom">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -343,38 +331,74 @@
         </div>
         <!--Script main here-->
         <script src="/rais/settings/main.js"></script>
-</body>
-<!--Script for 3d charts-->
-<script>
-google.charts.load('current', {
-    'packages': ['corechart']
-});
-google.charts.setOnLoadCallback(drawFunction);
+        <script src="/rais/settings/main2.js"></script>
 
-function drawFunction() {
-    var data = google.visualization.arrayToDataTable([
-        ["Users", "Total"],
-        ["Engineers", 30],
-        ["Vistors", 300],
-        ["Followers", 500],
-        ["Admin", 20],
-        ["Other", 30]
-    ]);
-    var options = {
-        title: '',
-        is3D: true
-    };
-    var chart = new google.visualization.PieChart(document.getElementById('box'));
-    chart.draw(data, options);
-}
-</script>
-<Script>
-$(document).ready(function() {
-    $('#btn-toggle-1').sideToggle({
-        moving: '.side-nav',
-        direction: 'left'
-    });
-});
-</Script>
+
+        <script>
+        $(function() {
+
+            // Counter for dashboard stats
+            $('.counter').counterUp({
+                delay: 10,
+                time: 1000
+            });
+
+            // Welcome notification
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["success"]("Welcome to student Result Management System!");
+
+        }); <
+        /> < /
+        body > <
+            !--Script
+        for 3 d charts-- >
+        <
+        script >
+            google.charts.load('current', {
+                'packages': ['corechart']
+            });
+        google.charts.setOnLoadCallback(drawFunction);
+
+        function drawFunction() {
+            var data = google.visualization.arrayToDataTable([
+                ["Users", "Total"],
+                ["Engineers", 30],
+                ["Vistors", 300],
+                ["Followers", 500],
+                ["Admin", 20],
+                ["Other", 30]
+            ]);
+            var options = {
+                title: '',
+                is3D: true
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('box'));
+            chart.draw(data, options);
+        }
+        </script>
+        <Script>
+        $(document).ready(function() {
+            $('#btn-toggle-1').sideToggle({
+                moving: '.side-nav',
+                direction: 'left'
+            });
+        });
+        </Script>
 
 </html>

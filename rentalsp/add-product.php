@@ -44,6 +44,21 @@
                         </div>
                         </div>
                         <div class="logo-element text-center text-light mt-4">RAIS | Admin</div>
+                        <div class="section mt-1">
+                            <div class="container-fluid text-light">
+                                <span class="text-info">Info:</span>
+                                <?php
+                                  $conn = $pdo->open();
+                                  $stmt = $conn->prepare("SELECT firstname,lastname FROM users WHERE user_id=:user_id");
+                                  $stmt->execute(['user_id'=>$_SESSION['admin']]);
+                                  $crow =  $stmt->fetch();
+                                  $firstnm=$crow['firstname'];
+                                  $lastname=$crow['lastname'];
+                                  echo "<td class='text-light'>$firstnm  $lastname</td>";
+                                  $pdo->close();
+                             ?>
+                            </div>
+                        </div>
                     </div>
                     <!-- End side nav profile -->
                     <!--bigning menu-->

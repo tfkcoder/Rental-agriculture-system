@@ -54,6 +54,7 @@
                             </div>
                         </div>
                         <div class="logo-element text-center text-light mt-4">RAIS | Supplier</div>
+
                     </div>
                     <!-- End side nav profile -->
                     <!--bigning menu-->
@@ -80,16 +81,34 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="mainmenu">
+                                <a href="/rais/supplier/category.php"><i
+                                        class="fa fa-list"></i><span>Category</span></a>
 
+                            </div>
+                            <div class="mainmenu">
+                                <a href="/rais/supplier/manage-product.php"><i
+                                        class="fa fa-database"></i><span>Products</span></a>
+
+                            </div>
                             <div class="mainmenu">
                                 <a href="/rais/supplier/shipping.php"><i
-                                        class="fa fa-truck"></i><span>Shipping</span></a>
+                                        class="fa fa-truck"></i><span>Delivery</span></a>
                                 <div class="submenu">
 
                                 </div>
                             </div>
                             <div class="mainmenu">
-                                <a href="supplier.php"><i class="fa fa-book"></i><span>Request</span> </a>
+                                <a href="#"><i class="fa fa-book"></i><span>Request</span> </a>
+                                <div class="submenu">
+                                    <ul>
+                                        <li><a href="/rais/supplier/supplier.php"><i class="fa fa-comment"></i><span>
+                                                    Approved Request</span></a></li>
+                                        <li><a href="/rais/supplier/request.php"><i
+                                                    class="fa fa fa-comments"></i><span>All
+                                                    Request</span></a></li>
+                                    </ul>
+                                </div>
 
                             </div>
                             <div class="section line-sec">
@@ -101,7 +120,7 @@
                             </div>
                             <div class="section mt-4">
 
-                                <div class="container text-light">
+                                <div class="container">
                                     <a href="#" class="profile-key">
                                         <i class="fa fa-user"></i>
                                         <span> Profile</span>
@@ -131,6 +150,26 @@
                         <div class="col-sm-6 col-lg-6 col-md-6">
                             <div class="h3">Dashboard</div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="section mt-1">
+                                <div class="container-fluid text-dark">
+                                    <h4 class="pull-left">Logged in as:&nbsp;<strong style="color: #0066cc;">
+                                            <?php
+                                  $conn = $pdo->open();
+                                  $stmt = $conn->prepare("SELECT firstname,lastname FROM users WHERE user_id=:user_id");
+                                  $stmt->execute(['user_id'=>$_SESSION['supplier']]);
+                                  $crow =  $stmt->fetch();
+                                  $firstnm=$crow['firstname'];
+                                  $lastname=$crow['lastname'];
+                                  echo "<td class='text-primary'>$firstnm  $lastname</td>";
+                                  $pdo->close();
+                                ?>
+                                        </strong> </h4>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                     </div>
                 </div>
                 <!--section for dashbord content here-->
@@ -186,7 +225,7 @@
                                         </div>
                                         <div class="col-7 col-md-8">
                                             <div class="numbers">
-                                                <p class="card-category">Shipped</p>
+                                                <p class="card-category">Delivery</p>
                                                 <p class="card-title" id='0102'>
                                                     <?php
                                                     $conn = $pdo->open();
@@ -223,7 +262,7 @@
                                         </div>
                                         <div class="col-7 col-md-8">
                                             <div class="numbers">
-                                                <p class="card-category">Pending</p>
+                                                <p class="card-category">Not Delivery</p>
                                                 <p class="card-title" id='0103'>
                                                     <?php
                                                     $conn = $pdo->open();
@@ -279,13 +318,13 @@
                     </div>
                     <div class="row row-middle">
 
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class="section mb-3">
                                 <div class="content">
                                     <div class="container-fluid">
                                         <div class="card">
                                             <div class="card-header">
-                                                <div class="h5">Shipped Request's</div>
+                                                <div class="h5">Delivered Request's</div>
                                             </div>
                                             <div class="card-body">
                                                 <div class="content">
@@ -296,8 +335,9 @@
                                                             <th>Equipment</th>
                                                             <th>Quantity</th>
                                                             <th>Day Of Use</th>
+                                                            <th>Day's Left</th>
                                                             <th>Status</th>
-                                                            <th>Shipped</th>
+                                                            <th>Delivery</th>
                                                             <th>Action</th>
                                                         </thead>
                                                         <tbody>
@@ -312,6 +352,7 @@
                                                                     foreach($stmt as $row){
                                                                         $status1 = ($row['status1'])? '<div  class="p  rounded-pill w-40 text-center  text-success">Approved </div>' : '<div class="text-center" ><span class="label div text-danger rounded-pill w-40 text-center "> Pending </span> </div>';
                                                                         $types = ($row['types'])? '<div  class="p  rounded-pill w-40 text-center  text-success">Yes </div>' : '<div class="text-center"> <span class="label div text-danger rounded-pill w-40 text-center "> No </span></div> ';
+                                                                        $days_left_str = ($row['days_left'] > 0) ? $row['days_left'] . " days" : " <p class='text-center text-danger'>Expired</p> ";
 
                                                                         echo "
                                                                         <tr>
@@ -319,6 +360,7 @@
                                                                             <td>".$row['equipment']."</td>
                                                                             <td>".$row['quantity']."</td>
                                                                             <td>".$row['days']."</td>
+                                                                            <td class='text-center text-primary'>".$days_left_str."</td>
                                                                             <td>".$status1."</td>
                                                                             <td>".$types."</td>
                                                                             <td>
@@ -340,8 +382,9 @@
                                                             <th>Equipment</th>
                                                             <th>Quantity</th>
                                                             <th>Day Of Use</th>
+                                                            <th>Day's Left</th>
                                                             <th>Status</th>
-                                                            <th>Shipped</th>
+                                                            <th>Delivery</th>
                                                             <th>Action</th>
                                                         </tfoot>
                                                     </table>
@@ -352,52 +395,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="section ">
-                                <div class="container-fluid">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="h5 text-dark pull-left">Comments <i
-                                                    class="fa fa-comments-o"></i> </div>
-                                        </div>
-                                        <div class="card-body">
 
-                                            <div class="section">
-                                                <div class="container-fluid">
-                                                    <form method="POST" action="request_add.php"
-                                                        enctype="multipart/form-data">
-
-                                                        <div class="form-floating mb-3">
-                                                            <input type="textarea" class="form-control" name="comment"
-                                                                id="formId1" placeholder="" required>
-                                                            <label for="formId1">comments </label>
-                                                        </div>
-                                                        <div class=" d-grid gap-2 mb-3 mt-2">
-                                                            <button type="submit" name="send"
-                                                                class="btn btn-outline-primary">Send </button>
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="section mt-4">
-                                <div class="container-fluid">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5>Manage your comments</h5>
-                                        </div>
-                                        <div class="card-body">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                     <div class="row row-bottom">
@@ -438,7 +436,7 @@
                                 role="document">
                                 <div class="modal-content modal-style">
                                     <div class="modal-header">
-                                        <h5 class="modal-title text-success" id="modalTitleId">Shipping Approval</h5>
+                                        <h5 class="modal-title text-success" id="modalTitleId">Delivery Approval</h5>
                                     </div>
                                     <div class="modal-body">
                                         <!--form for catching user  data-->
@@ -447,7 +445,7 @@
                                             <input type="hidden" class="requestid" name="request_id">
                                             <div class="row">
                                                 <div class="col-md-12 col-lg-12 col-sm-12 mt-2">
-                                                    <label for="status" class="col-sm-12 control-label">Shipping
+                                                    <label for="status" class="col-sm-12 control-label">Delivery
                                                         Status</label>
                                                     <div class="form-group mt-1">
                                                         <input class="form-check-input" type="radio" name="types" id=""
@@ -456,7 +454,7 @@
                                                         <input class="form-check-input" type="radio" name="types" id=""
                                                             value="0" autocomplete="off" tabindex="-1" required>
                                                         <label class="form-check-label" for="blocked">Waiting
-                                                            Shipping</label>
+                                                        </label>
                                                     </div>
                                                 </div>
 
